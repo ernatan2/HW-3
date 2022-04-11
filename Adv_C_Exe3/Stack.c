@@ -11,11 +11,7 @@ void initStack(Stack* s)
 
 void destroyStack(Stack* s)
 {
-	if (s->head->data) {
-		return;
-	}
-	free(s->head->data);
-	destroyStack(s->head->next);
+	
 }
 
 
@@ -53,15 +49,15 @@ int isEmptyStack(const Stack* s)
 void flipBetweenHashes(const char* sentence)
 {
 	Stack* ptr_stk = NULL;
-	ptr_stk = (Stack*)malloc(sizeof(Stack));
+	ptr_stk = (Stack*)malloc(sizeof(Stack)); 
 	charNode* tmp = NULL;
 	int counter = 0;
 	char* ptr_sentence = sentence;
-	if (!ptr_stk) {
+	if (!ptr_stk) { //checking if memory allocation succedded
 		printf("Memory allocation problem\n");
 		exit(1);
 	}
-	if (!sentence) {
+	if (!sentence) { // checking if sentence dousn't have a value
 		return sentence;
 	}
 	
@@ -71,26 +67,27 @@ void flipBetweenHashes(const char* sentence)
 		}
 		ptr_sentence++;
 	}
-	if ((counter % 2) || !(counter)) {
+	if ((counter % 2) || !(counter)) { // checking if there is a even number of #
 		printf("Odd number of '#'\n");
 		return;
 	}
-	while (sentence != '\0') {
+	while (*sentence != '\0') {
 		if (*sentence == '#') {
 			sentence++;
 			counter = 0;
-			while (*sentence != '#') {
-				push(ptr_stk, *sentence);
+			while (*sentence != '#') { 
+				push(ptr_stk, *sentence); //sets the latters in the stack
 				sentence++;
 				counter++;
 			}
 	        tmp = ptr_stk->head;
-			for (int i = 0; i < counter; i++) {
+			for (int i = 0; i < counter; i++) { // print's the stack
 				printf("%c", tmp->data);
 				tmp = tmp->next;
 			}
-			while (ptr_stk->head->data) {
+			for (int i = 0; i < counter; i++) {
 				pop(ptr_stk);
+				
 			}
 		}
 		else {
@@ -103,7 +100,37 @@ void flipBetweenHashes(const char* sentence)
 
 int isPalindrome(Stack* s)
 {
-	// add your code here
+	char* sentence, *ptr_sntc;
+	Stack* c_s = NULL;
+	int counter = 0;
+	c_s = (Stack*)malloc(sizeof(Stack));
+	if (!c_s) {
+		printf("memory allocation problem\n");
+		exit(1);
+	}
+	if (!s) {
+		return;
+	}
+	while (s != '\0') {
+		sentence = (char*)malloc(sizeof(char));
+		if (!sentence) {
+			printf("memory allocation problem\n");
+			exit(1);
+		}
+		sentence = pop(s);
+		push(c_s, sentence);
+		sentence++;
+		counter++;
+		
+	}
+	while (counter != 0) {
+		pop(c_s);
+		counter--;
+	}
+
+
+	
+
 }
 
 void rotateStack(Stack* s, int n)
