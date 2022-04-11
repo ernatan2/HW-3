@@ -4,5 +4,6 @@
 
 void main()
 {
-	// add your code here
+	const char check[27] = "Remem#reb# thi#carp s#tice";
+	flipBetweenHashes(check);
 }
